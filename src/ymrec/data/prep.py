@@ -53,6 +53,13 @@ def load_listen_plus(size: Size = DEFAULT_SIZE, token: str | None = None) -> pl.
     )
 
 
+def item_vocab(size: Size = DEFAULT_SIZE, token: str | None = None) -> np.ndarray:
+    """Sorted unique TRAIN Listen+ item ids — the shared item vocabulary."""
+    pos = load_listen_plus(size=size, token=token)
+    train, _, _ = gts.split(pos)
+    return np.sort(train["item_id"].unique().to_numpy())
+
+
 def prepare(size: Size = DEFAULT_SIZE, token: str | None = None) -> Prepared:
     pos = load_listen_plus(size=size, token=token)
     train, test, bounds = gts.split(pos)
