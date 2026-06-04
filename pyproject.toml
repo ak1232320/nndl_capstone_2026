@@ -1,6 +1,6 @@
 [project]
 name = "ymrec"
-version = "0.1.1"
+version = "0.1.2"
 description = "Next-Gen Music Recommender on Yambda — SASRec sequence model + two-tower content network (hybrid)"
 requires-python = ">=3.11"
 dependencies = [

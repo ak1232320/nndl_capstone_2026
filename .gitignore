@@ -31,3 +31,6 @@ build/
 Thumbs.db
 .vscode/
 .idea/
+
+# Kaggle notebook exports dropped in the repo root (our real notebooks live in notebooks/)
+/notebook*.ipynb
