@@ -201,7 +201,7 @@ def fit(
             m = evaluate(model, data, device, ks=ks)
             if m["ndcg@10"] > best["ndcg@10"]:
                 best = {"epoch": epoch, **m}
-            extra = f"  alpha={float(model.alpha):.3f}" if hasattr(model, "alpha") else ""
+            extra = f"  alpha={model.alpha.item():.3f}" if hasattr(model, "alpha") else ""
             print(f"epoch {epoch:3d}  loss={last_loss:.4f}  "
                   f"NDCG@10={m['ndcg@10']:.4f}  NDCG@100={m['ndcg@100']:.4f}  "
                   f"Recall@100={m['recall@100']:.4f}{extra}")
