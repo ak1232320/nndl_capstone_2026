@@ -1,7 +1,8 @@
 # Data & model artifacts (never commit — pulled from HF / regenerated)
-data/
-artifacts/
-models/
+# Root-anchored (leading /) so they DON'T match source packages like src/ymrec/data/.
+/data/
+/artifacts/
+/models/
 *.parquet
 *.ckpt
 *.pt
