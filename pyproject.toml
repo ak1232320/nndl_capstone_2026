@@ -17,7 +17,7 @@ dependencies = [
 # Heavy / GPU deps — preinstalled on Kaggle, install locally only if needed.
 torch = ["torch>=2.2"]
 baselines = ["implicit>=0.7"]   # iALS / BPR reference baselines
-dev = ["pytest>=8.0", "ruff>=0.6"]
+dev = ["pytest>=8.0", "ruff>=0.6", "matplotlib>=3.7", "ipykernel>=6.0"]
 
 [build-system]
 requires = ["hatchling"]
