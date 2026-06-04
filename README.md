@@ -6,6 +6,7 @@ a **SASRec** sequence model + a **two-tower** content network on audio
 embeddings, fused to predict the next track for a streaming user.
 
 Team: Anna Grishkina · Valeria Karpova · Aleksey Kosychev.
+Repo: https://github.com/ak1232320/nndl_capstone_2026
 
 ## Where things run
 
@@ -29,6 +30,21 @@ Set a HuggingFace read token before downloading data:
 ```powershell
 $env:HF_TOKEN = "hf_..."
 ```
+
+## Kaggle workflow (training)
+
+Notebook-driven. A Kaggle notebook installs this package from GitHub, so the
+notebook stays thin and the code stays versioned:
+
+```python
+!pip install -q "git+https://github.com/ak1232320/nndl_capstone_2026.git"
+```
+
+In the notebook settings: **Internet On**, GPU on for SASRec/two-tower. Put the
+HF token in *Add-ons → Secrets* as `HF_TOKEN`. Starter notebook:
+[`notebooks/00_kaggle_smoke.ipynb`](notebooks/00_kaggle_smoke.ipynb) — installs the
+package and reproduces Milestone 0 on Kaggle. Iterate on code locally → push →
+re-run the install cell on Kaggle.
 
 ## Layout
 

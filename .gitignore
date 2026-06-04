@@ -16,6 +16,9 @@ venv/
 .env
 *.egg-info/
 .ipynb_checkpoints/
+dist/
+build/
+*.whl
 
 # Tooling
 .ruff_cache/
