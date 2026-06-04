@@ -1,0 +1,31 @@
+[project]
+name = "ymrec"
+version = "0.1.0"
+description = "Next-Gen Music Recommender on Yambda — SASRec sequence model + two-tower content network (hybrid)"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "polars>=1.0",        # fast parquet / large event tables
+    "pandas>=2.0",
+    "pyarrow>=15.0",
+    "scipy>=1.11",        # sparse matrices for ItemKNN / iALS
+    "huggingface-hub>=0.23",
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+# Heavy / GPU deps — preinstalled on Kaggle, install locally only if needed.
+torch = ["torch>=2.2"]
+baselines = ["implicit>=0.7"]   # iALS / BPR reference baselines
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ymrec"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

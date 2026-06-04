@@ -1,0 +1,29 @@
+# Data & model artifacts (never commit — pulled from HF / regenerated)
+data/
+artifacts/
+models/
+*.parquet
+*.ckpt
+*.pt
+*.npy
+*.npz
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.egg-info/
+.ipynb_checkpoints/
+
+# Tooling
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
