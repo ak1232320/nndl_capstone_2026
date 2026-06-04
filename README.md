@@ -21,13 +21,20 @@ seen items **not** filtered), so they are directly comparable.
 | ItemKNN — bm25 | **0.0709** | strongest classical baseline |
 | **SASRec** | **0.0735** | beats all baselines; 98% of the paper's 0.0748 |
 | Hybrid — joint embedding fusion | 0.0581 | content overfits → **negative result** |
-| **Late fusion (frozen SASRec + content)** | **0.0787** | β=0.75; **+12.6% over SASRec** on held-out test users |
+| **Late fusion (frozen SASRec + content)** | **0.0798** | β≈0.75–1.0; **+9.7% ± 2.0% over SASRec** (5 user splits) |
 
-**Headline:** on a held-out split of users, late fusion lifts NDCG@10 from 0.0699
-(SASRec) to **0.0787 (+12.6%)** — β tuned on a separate validation split, no
-leakage. The β curve peaks at 0.75 (not 0), so the audio content adds genuine
-complementary signal. Naive joint fusion overfit and lost; principled late fusion
-won — that contrast is the modelling story.
+**Headline:** late fusion lifts NDCG@10 from 0.0728 (SASRec) to **0.0798**, a
+**+9.7% ± 2.0%** gain that holds across 5 held-out user splits (β tuned on a
+separate validation split each time — no leakage; every split positive,
++6.6%…+12.3%). Naive joint fusion overfit and lost (0.0581); principled late
+fusion won — that contrast is the modelling story.
+
+**Where the gain comes from (honest finding):** content helps on **popular**
+items (+12–13% on head) and slightly *hurts* the extreme long tail (−8.5% on
+items with ≤5 train events). So the audio signal acts as a **taste-alignment
+refinement on mainstream tracks**, *not* the cold-start/long-tail fix the pitch
+hypothesised. The user content vector is the mean audio of the history (a taste
+centroid), which boosts sonically-central tracks rather than rescuing rare ones.
 
 Reference baselines (Yandex paper, arXiv:2505.22238, 50M, NDCG@10): MostPop
 0.0186, BPR 0.0389, iALS 0.0407, SASRec 0.0748, **ItemKNN 0.0781**. Our SASRec
