@@ -6,7 +6,8 @@ a **SASRec** sequence model fused with an **audio-content** tower, predicting th
 next track for a streaming user.
 
 Team: Anna Grishkina · Valeria Karpova · Aleksey Kosychev.
-Repo: https://github.com/ak1232320/nndl_capstone_2026 · **Full write-up: [REPORT.md](REPORT.md)**
+Repo: https://github.com/ak1232320/nndl_capstone_2026
+**Full write-up: [REPORT.md](REPORT.md) · [REPORT.pdf](REPORT.pdf)** · pitch: [pitch.md](pitch.md)
 
 ## Results (our harness, Yambda-50M, Listen+, full-catalogue ranking)
 
@@ -64,7 +65,7 @@ code stays versioned:
 !pip install -q --no-cache-dir --upgrade "git+https://github.com/ak1232320/nndl_capstone_2026.git"
 ```
 
-Settings: **Internet On**; **GPU** for `02`/`04`/`05`; `HF_TOKEN` in *Add-ons →
+Settings: **Internet On**; **GPU** for `02`/`04`/`05`/`06`; `HF_TOKEN` in *Add-ons →
 Secrets* (optional). Iterate: edit code locally → push → re-run the install cell
 (use a fresh kernel to avoid a stale pip git cache).
 
@@ -75,9 +76,11 @@ Secrets* (optional). Iterate: edit code locally → push → re-run the install 
 | `00_kaggle_smoke` | install + reproduce MostPop (harness sanity check) |
 | `01_baselines` | MostPop + ItemKNN (cosine/tfidf/bm25), one table |
 | `02_sasrec` | train SASRec on GPU |
-| `03_content_emb_prep` | one-time: filter 13.8 GB audio embeddings → compact `.npy` (optional; `04`/`05` now load inline) |
+| `03_content_emb_prep` | one-time: filter 13.8 GB audio embeddings → compact `.npy` (optional; `04`–`06` load inline) |
 | `04_hybrid` | joint embedding-fusion hybrid (the negative-result experiment) |
 | `05_fusion` | late fusion: frozen SASRec + content, validation-tuned β |
+| `06_robustness` | multi-seed robustness (+9.7%±2.0%) + head/tail analysis |
+| `07_report_figures` | report figures (matplotlib; no data/GPU) |
 
 ## Local dev (no training — Kaggle only)
 
@@ -100,9 +103,12 @@ src/ymrec/
   baselines/           MostPop, ItemKNN (cosine/tfidf/bm25 via implicit)
   models/sasrec.py     SASRec causal-attention Transformer + train/eval
   models/hybrid.py     content-augmented item embeddings (joint fusion)
-  models/fusion.py     late score-level fusion with a validation-tuned weight
-notebooks/             Kaggle notebooks (see table above)
+  models/fusion.py     late score-level fusion (validation-tuned weight) + robustness/tail
+notebooks/             Kaggle notebooks 00–07 (see table above)
+scripts/               report_figures.py, build_pdf.py, baseline / milestone scripts
+figures/               report figures (PNG)
 tests/                 unit tests for the eval harness
+REPORT.md / REPORT.pdf write-up · pitch.md / Pitch_YMusic.pptx pitch deck
 ```
 
 ## Protocol notes
