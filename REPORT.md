@@ -128,6 +128,8 @@ ItemKNN is undertuning (we used K = 100), not a protocol difference.
 | Hybrid — joint fusion | 0.0581 | 0.0908 | 0.1510 |
 | **Hybrid — late fusion** | **0.0798** | — | — |
 
+![Model ladder — NDCG@10 on Yambda-50M](figures/fig1_ladder.png)
+
 BM25 is the clear best classical weighting; SASRec beats all baselines.
 
 ### 5.2 Fusion weight β (validation NDCG@10, one split)
@@ -135,6 +137,8 @@ BM25 is the clear best classical weighting; SASRec beats all baselines.
 | β | 0.0 | 0.05 | 0.1 | 0.2 | 0.3 | 0.5 | **0.75** | 1.0 | 1.5 | 2.0 |
 |---|-----|------|-----|-----|-----|-----|----------|-----|-----|-----|
 | NDCG@10 | .0702 | .0734 | .0751 | .0784 | .0788 | .0809 | **.0812** | .0807 | .0794 | .0766 |
+
+![Validation NDCG@10 vs fusion weight β](figures/fig2_beta.png)
 
 A clean inverted-U peaking at β ≈ 0.75 — the content adds genuine complementary
 signal (the optimum is not at β = 0).
@@ -149,6 +153,8 @@ signal (the optimum is not at β = 0).
 | 3 | 0.75 | 0.0737 | 0.0804 | +9.1 % |
 | 4 | 1.00 | 0.0718 | 0.0801 | +11.5 % |
 | **mean** | — | **0.0728 ± 0.0018** | **0.0798 ± 0.0011** | **+9.7 % ± 2.0 %** |
+
+![SASRec vs Fused across 5 held-out splits](figures/fig3_robustness.png)
 
 Every split is positive; the win is not an artefact of one split. On the held-out
 test users, all metrics improve (Recall@10 +11 %, NDCG@100 +11.5 %, Coverage@10 +15 %).
@@ -166,6 +172,8 @@ full-catalogue, we just credit hits per slice.
 | tail ≤ 20 | 3853 | 0.0279 | 0.0290 | +4.1 % |
 | head > 100 | 3714 | 0.0467 | 0.0529 | +13.2 % |
 | tail ≤ 100 | 4361 | 0.0471 | 0.0508 | +7.9 % |
+
+![NDCG@10 lift on head vs tail items](figures/fig4_head_tail.png)
 
 The audio gain concentrates on **popular** items (+12–13 %) and slightly **hurts**
 the extreme tail (−8.5 % on items with ≤ 5 interactions).

@@ -34,6 +34,3 @@ Thumbs.db
 
 # Kaggle notebook exports dropped in the repo root (our real notebooks live in notebooks/)
 /notebook*.ipynb
-
-# Locally-generated report figures (regenerable from notebooks/07_report_figures.ipynb)
-/figures/
