@@ -6,7 +6,7 @@ a **SASRec** sequence model fused with an **audio-content** tower, predicting th
 next track for a streaming user.
 
 Team: Anna Grishkina · Valeria Karpova · Aleksey Kosychev.
-Repo: https://github.com/ak1232320/nndl_capstone_2026
+Repo: https://github.com/ak1232320/nndl_capstone_2026 · **Full write-up: [REPORT.md](REPORT.md)**
 
 ## Results (our harness, Yambda-50M, Listen+, full-catalogue ranking)
 
