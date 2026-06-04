@@ -159,12 +159,9 @@ def evaluate(model: SASRec, data: SeqData, device: str, ks=TOPK, chunk: int = 12
     return evaluate_ranking(recs, data.relevant, n_items=data.n_items, ks=ks)
 
 
-def train_and_eval(
+def fit(
+    model: nn.Module,
     data: SeqData,
-    d: int = 64,
-    n_blocks: int = 2,
-    n_heads: int = 1,
-    dropout: float = 0.2,
     epochs: int = 100,
     batch_size: int = 128,
     lr: float = 1e-3,
@@ -172,12 +169,13 @@ def train_and_eval(
     device: str | None = None,
     seed: int = 42,
     ks=TOPK,
-) -> tuple[SASRec, dict]:
+) -> tuple[nn.Module, dict]:
+    """Train any SASRec-compatible model (forward(seq,pos,neg) + score_all)."""
     device = device or ("cuda" if torch.cuda.is_available() else "cpu")
     torch.manual_seed(seed)
     np.random.seed(seed)
 
-    model = SASRec(data.n_items, data.maxlen, d, n_blocks, n_heads, dropout).to(device)
+    model = model.to(device)
     opt = torch.optim.Adam(model.parameters(), lr=lr, betas=(0.9, 0.98))
     bce = nn.BCEWithLogitsLoss()
     loader = DataLoader(_TrainDataset(data), batch_size=batch_size, shuffle=True)
@@ -203,7 +201,20 @@ def train_and_eval(
             m = evaluate(model, data, device, ks=ks)
             if m["ndcg@10"] > best["ndcg@10"]:
                 best = {"epoch": epoch, **m}
+            extra = f"  alpha={float(model.alpha):.3f}" if hasattr(model, "alpha") else ""
             print(f"epoch {epoch:3d}  loss={last_loss:.4f}  "
                   f"NDCG@10={m['ndcg@10']:.4f}  NDCG@100={m['ndcg@100']:.4f}  "
-                  f"Recall@100={m['recall@100']:.4f}")
+                  f"Recall@100={m['recall@100']:.4f}{extra}")
     return model, best
+
+
+def train_and_eval(
+    data: SeqData,
+    d: int = 64,
+    n_blocks: int = 2,
+    n_heads: int = 1,
+    dropout: float = 0.2,
+    **fit_kwargs,
+) -> tuple[SASRec, dict]:
+    model = SASRec(data.n_items, data.maxlen, d, n_blocks, n_heads, dropout)
+    return fit(model, data, **fit_kwargs)
