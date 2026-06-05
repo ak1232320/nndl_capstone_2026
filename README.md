@@ -71,6 +71,11 @@ Secrets* (optional). Iterate: edit code locally → push → re-run the install 
 
 ### Notebooks
 
+**▶ [`RUN_ALL.ipynb`](notebooks/RUN_ALL.ipynb) reproduces the whole project in one
+notebook** (data → baselines → SASRec → joint hybrid → late fusion → robustness →
+tail → summary table). GPU + Internet on, *Run All*, ≈ 45–55 min on a T4. **Start
+here to reproduce everything.** The per-stage notebooks below are for focused runs:
+
 | Notebook | What |
 |----------|------|
 | `00_kaggle_smoke` | install + reproduce MostPop (harness sanity check) |

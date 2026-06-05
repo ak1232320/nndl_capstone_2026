@@ -137,7 +137,7 @@ SLIDES = [
       <ul>
         <li>Yambda dataset on Hugging Face — public, free.</li>
         <li>One free Kaggle T4 (16 GB) GPU — no paid infrastructure.</li>
-        <li>Reproducible: <span class="repo">{REPO}</span> (pipeline notebooks 00–07).</li>
+        <li>Reproducible: <span class="repo">{REPO}</span> — one notebook <b>RUN_ALL.ipynb</b> (Run All).</li>
       </ul>{footer(5)}</div>""",
 ]
 
