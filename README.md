@@ -22,16 +22,18 @@ seen items **not** filtered), so they are directly comparable.
 | ItemKNN — bm25 | **0.0709** | strongest classical baseline |
 | **SASRec** | **0.0735** | beats all baselines; 98% of the paper's 0.0748 |
 | Hybrid — joint embedding fusion | 0.0581 | content overfits → **negative result** |
-| **Late fusion (frozen SASRec + content)** | **0.0798** | β≈0.75–1.0; **+9.7% ± 2.0% over SASRec** (5 user splits) |
+| **Late fusion (frozen SASRec + content)** | **≈0.078–0.080** | β≈0.5–1.0; **+6–10% over SASRec** — positive on every split & run |
 
-**Headline:** late fusion lifts NDCG@10 from 0.0728 (SASRec) to **0.0798**, a
-**+9.7% ± 2.0%** gain that holds across 5 held-out user splits (β tuned on a
-separate validation split each time — no leakage; every split positive,
-+6.6%…+12.3%). Naive joint fusion overfit and lost (0.0581); principled late
-fusion won — that contrast is the modelling story.
+**Headline:** late fusion lifts NDCG@10 from ≈0.073 (SASRec) to **≈0.078–0.080**,
+a **+6–10%** gain that is positive on every held-out user split and every training
+run (β tuned on a separate validation split each time — no leakage). Two full
+end-to-end runs gave **+6.0% ± 2.8%** and **+9.7% ± 2.0%** — GPU training is
+non-deterministic, so the exact relative figure varies run-to-run, but the
+improvement is robust. Naive joint fusion overfit and lost (0.0581); principled
+late fusion won — that contrast is the modelling story.
 
 **Where the gain comes from (honest finding):** content helps on **popular**
-items (+12–13% on head) and slightly *hurts* the extreme long tail (−8.5% on
+items (≈+9–13% on head) and slightly *hurts* the extreme long tail (≈−4…−9% on
 items with ≤5 train events). So the audio signal acts as a **taste-alignment
 refinement on mainstream tracks**, *not* the cold-start/long-tail fix the pitch
 hypothesised. The user content vector is the mean audio of the history (a taste
@@ -74,7 +76,10 @@ Secrets* (optional). Iterate: edit code locally → push → re-run the install 
 **▶ [`RUN_ALL.ipynb`](notebooks/RUN_ALL.ipynb) reproduces the whole project in one
 notebook** (data → baselines → SASRec → joint hybrid → late fusion → robustness →
 tail → summary table). GPU + Internet on, *Run All*, ≈ 45–55 min on a T4. **Start
-here to reproduce everything.** The per-stage notebooks below are for focused runs:
+here to reproduce everything.** The per-stage notebooks below are for focused runs.
+
+**Want the results without running anything?** Executed copies with full outputs are in
+[`notebooks/executed/`](notebooks/executed/) (`RUN_ALL.ipynb` = the whole pipeline).
 
 | Notebook | What |
 |----------|------|
@@ -84,7 +89,7 @@ here to reproduce everything.** The per-stage notebooks below are for focused ru
 | `03_content_emb_prep` | one-time: filter 13.8 GB audio embeddings → compact `.npy` (optional; `04`–`06` load inline) |
 | `04_hybrid` | joint embedding-fusion hybrid (the negative-result experiment) |
 | `05_fusion` | late fusion: frozen SASRec + content, validation-tuned β |
-| `06_robustness` | multi-seed robustness (+9.7%±2.0%) + head/tail analysis |
+| `06_robustness` | multi-seed robustness (+6–10% across runs) + head/tail analysis |
 | `07_report_figures` | report figures (matplotlib; no data/GPU) |
 
 ## Local dev (no training — Kaggle only)

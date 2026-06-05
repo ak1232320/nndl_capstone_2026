@@ -118,11 +118,11 @@ SLIDES = [
       <div class="label">Results (our harness)</div>
       <ul>
         <li>Best baselines: ItemKNN 0.071 · <b>SASRec 0.0735</b> (98 % of the paper, beats all baselines).</li>
-        <li><mark>Hybrid: +9.7 % ± 2.0 % over SASRec</mark> — robust across 5 held-out user splits.</li>
+        <li><mark>Hybrid: +6–10 % over SASRec</mark> — robust, positive on every split and run.</li>
       </ul>
       <div class="label">Expected business impact</div>
       <ul>
-        <li>+9.7 % better next-track ranking → lever on listening time and churn.</li>
+        <li>+6–10 % better next-track ranking → lever on listening time and churn.</li>
         <li>Delivered on free data + one free GPU (near-zero infrastructure cost).</li>
       </ul>{footer(4)}</div>""",
     # 6 — summary
@@ -132,7 +132,7 @@ SLIDES = [
       <div class="lead">Real Yandex listening data (Yambda-50M) → hybrid neural recommender:
         SASRec + audio-content tower, fused with a validation-tuned weight → predict the next track.
         <b>SASRec beats every baseline and reproduces the paper to 98 %; late fusion adds a robust
-        +9.7 % ± 2.0 % NDCG@10</b> across 5 held-out splits.</div>
+        +6–10 % NDCG@10</b> — positive on every split and run.</div>
       <div class="label">What it took / how to reproduce</div>
       <ul>
         <li>Yambda dataset on Hugging Face — public, free.</li>

@@ -75,7 +75,7 @@ content signal.
   and dilute the strong collaborative signal.
 - We then used **late, score-level fusion** with `β` chosen on a *validation*
   split of users (not on train). `β = 0` recovers SASRec, so fusion **cannot do
-  worse**; the tuned `β ≈ 0.75–1.0` shows the content adds genuine complementary
+  worse**; the tuned `β ≈ 0.5–1.0` shows the content adds genuine complementary
   signal. This is the model that wins.
 
 *Why a hybrid:* pure collaborative filtering ignores content; a pure content
@@ -104,14 +104,16 @@ trustworthy. SASRec already beats every classical baseline.
 
 **Result — the hybrid wins, robustly:**
 
-> Late fusion lifts NDCG@10 from **0.0728 (SASRec)** to **0.0798**, a
-> **+9.7 % ± 2.0 %** gain that holds across **5 held-out user splits** (every
-> split positive, +6.6 %…+12.3 %; β tuned on a separate validation split each
-> time — no leakage). Recall@10, NDCG@100 and catalogue coverage all improve too.
+> Late fusion lifts NDCG@10 from ≈0.073 (SASRec) to **≈0.078–0.080**, a robust
+> **+6–10 %** gain that is positive on **every held-out user split and every
+> training run** (β tuned on a separate validation split each time — no leakage).
+> Two full end-to-end runs gave +6.0 % ± 2.8 % and +9.7 % ± 2.0 % — GPU training is
+> non-deterministic, so the exact figure varies, but the improvement is robust.
+> Recall@10, NDCG@100 and catalogue coverage all improve too.
 
 **Honest mechanism (where the gain comes from).** A tail analysis shows the audio
-signal helps on **popular** tracks (+12–13 % on head items) and slightly *hurts*
-the extreme long tail (−8.5 % on items with ≤ 5 interactions). So the audio acts
+signal helps on **popular** tracks (≈+9–13 % on head items) and slightly *hurts*
+the extreme long tail (≈−4…−9 % on items with ≤ 5 interactions). So the audio acts
 as a **taste-alignment refinement on mainstream tracks**, *not* the long-tail /
 cold-start fix we initially hypothesised — the taste-centroid user vector boosts
 sonically-central tracks rather than rescuing rare ones. A retrieval-oriented
@@ -123,7 +125,8 @@ content design is the natural next step to chase the cold-start case.
 
 We took real Yandex listening data (Yambda-50M), built a SASRec sequence model
 that **beats every published baseline and reproduces the paper to 98 %**, and a
-late-fusion hybrid that **adds a robust +9.7 % ± 2.0 % NDCG@10 over SASRec**.
+late-fusion hybrid that **adds a robust +6–10 % NDCG@10 over SASRec** (positive on
+every split and every run).
 
 **Business reading.** NDCG@10 is the standard offline proxy for recommendation
 engagement; a ~10 % relative ranking lift is a meaningful offline improvement.
