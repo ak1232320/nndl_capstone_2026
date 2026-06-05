@@ -29,6 +29,7 @@ build/
 # OS / editor
 .DS_Store
 Thumbs.db
+.~lock.*#
 .vscode/
 .idea/
 
